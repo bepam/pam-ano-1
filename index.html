@@ -347,83 +347,96 @@
 
 <div class="divider"><span></span><i>♡</i><span></span></div>
 
-<section>
-  <p class="section-label">Nossa história</p>
-  <h2 class="section-title">Tudo começou<br><em>num dia especial</em></h2>
-  <p class="section-body">
-    Foi em 15 de fevereiro que tudo começou. Um encontro, um sorriso, e a certeza de que algo lindo estava nascendo. Em um ano, construímos memórias que vão durar para sempre — cada abraço, cada risada, cada momento compartilhado.
-  </p>
-</section>
-
-<div class="counter-section">
-  <p class="section-label">Em números</p>
-  <div class="counter-grid">
-    <div class="counter-item">
-      <strong id="days">365</strong>
-      <span>dias juntos</span>
-    </div>
-    <div class="counter-item">
-      <strong>∞</strong>
-      <span>amor</span>
-    </div>
-    <div class="counter-item">
-      <strong id="months">12</strong>
-      <span>meses</span>
-    </div>
-  </div>
-</div>
-<div class="divider"><span></span><i>♡</i><span></span></div>
-
-<div class="timeline">
-  <p class="section-label" style="text-align:center; margin-bottom:2.5rem;">Momentos que ficaram</p>
-
-  <div class="timeline-item">
-    <div class="timeline-date">Feveiro<br>2025</div>
-    <div class="timeline-text">
-      <strong>O começo de tudo</strong>
-      <p></p>
-    </div>
-  </div>
-
-  <div class="timeline-item">
-    <div class="timeline-date"></div>
-    <div class="timeline-text">
-      <strong></strong>
-      <p></p>
-    </div>
-  </div>
-
-  <div class="timeline-item">
-    <div class="timeline-date"></div>
-    <div class="timeline-text">
-      <strong></strong>
-      <p></p>
-    </div>
-  </div>
-
-  <div class="timeline-item">
-    <div class="timeline-date">Fev<br>2026</div>
-    <div class="timeline-text">
-      <strong>Um ano juntos 🎉</strong>
-      <p>Um aniversário para celebrar tudo o que vivemos e tudo o que ainda vamos viver.</p>
-    </div>
-  </div>
-</div>
-<div class="quote-block">
-  <blockquote>
-    "O amor não é encontrar alguém com quem você consiga viver, mas alguém sem quem você não consegue viver."
-  </blockquote>
-  <cite>— para Pamella & José</cite>
-</div>
-
-<div class="message-section">
-  <span class="heart">♡</span>
-  <p class="section-label">Para você</p>
-  <h2 class="section-title" style="text-align:center;"><em>Feliz aniversário,<br>meu amor</em></h2>
-  <p class="section-body" style="text-align:center; margin-top:1.5rem;">
-    Que esse primeiro ano seja só o começo de uma história linda, cheia de amor, cumplicidade e momentos inesquecíveis. Te amo hoje, amanhã e sempre.
-  </p>
-</div>
+.timeline-carousel-wrapper {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem 2rem 5rem;
+}
+.month-block { margin-bottom: 4rem; }
+.month-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.carousel { position: relative; overflow: hidden; border-radius: 4px; }
+.carousel-track { display: flex; transition: transform 0.4s ease; }
+.carousel-slide { min-width: 100%; }
+.carousel-slide img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+  border-radius: 4px;
+}
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(253,246,238,0.85);
+  border: none;
+  color: var(--deep);
+  font-size: 1.8rem;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: background 0.2s;
+}
+.carousel-btn:hover { background: var(--cream); }
+.carousel-btn.prev { left: 0.8rem; }
+.carousel-btn.next { right: 0.8rem; }
+.carousel-dots { display: flex; justify-content: center; gap: 6px; padding: 0.8rem 0 0.2rem; }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blush); transition: background 0.3s; }
+.dot.active { background: var(--rose); }
+.month-text {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--text);
+  margin-top: 1rem;
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+}
+.carta-final {
+  border-left: 2px solid var(--blush);
+  padding: 2rem 2rem 2rem 2.5rem;
+  margin-top: 3rem;
+  position: relative;
+}
+.carta-aspas {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 6rem;
+  color: var(--blush);
+  position: absolute;
+  top: -1.5rem; left: 1rem;
+  line-height: 1;
+  opacity: 0.5;
+}
+.carta-final p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  line-height: 1.9;
+  color: var(--text);
+  margin-bottom: 1.2rem;
+  position: relative;
+  z-index: 1;
+}
+.carta-final cite {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-style: normal;
+  margin-top: 1.5rem;
+}
 
 <footer>
   <p>Feito com <em>♡</em> para <em>José Guilherme Martins dos Santos </em> · 15.02.2026</p>
