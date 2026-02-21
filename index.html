@@ -18,15 +18,17 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
       background-size: 200px; pointer-events: none; z-index: 999; opacity: 0.5;
     }
+    /* HERO */
     .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 3rem 2rem; position: relative; overflow: hidden; }
     .hero::after { content: ''; position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, #e8c4b840 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
     .date-label { font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.75rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; opacity: 0; animation: fadeUp 1s ease forwards 0.2s; }
     .hero-names { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.5rem, 10vw, 7rem); font-weight: 300; line-height: 1; color: var(--deep); opacity: 0; animation: fadeUp 1s ease forwards 0.5s; }
     .hero-names em { font-style: italic; color: var(--rose); }
     .ampersand { color: var(--gold); font-style: italic; margin: 0 0.3em; }
-    .hero-subtitle { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(1rem, 3vw, 1.4rem); color: var(#e8a89e); margin-top: 1.5rem; opacity: 0; animation: fadeUp 1s ease forwards 0.8s; }
+    .hero-subtitle { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(1rem, 3vw, 1.4rem); color: #e8a89e; margin-top: 1.5rem; opacity: 0; animation: fadeUp 1s ease forwards 0.8s; }
     .scroll-hint { position: absolute; bottom: 2.5rem; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blush); opacity: 0; animation: fadeUp 1s ease forwards 1.4s; }
     .scroll-hint::after { content: ''; display: block; width: 1px; height: 40px; background: var(--blush); margin: 0.6rem auto 0; animation: line 2s ease-in-out infinite; }
+    /* INTRO */
     .divider { display: flex; align-items: center; gap: 1.5rem; padding: 0 2rem; max-width: 600px; margin: 0 auto; }
     .divider span { flex: 1; height: 1px; background: var(--blush); }
     .divider i { font-style: normal; color: var(--gold); font-size: 1.1rem; }
@@ -39,21 +41,16 @@
     .counter-grid { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-top: 2.5rem; }
     .counter-item strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 4rem; color: var(--rose); line-height: 1; font-weight: 300; }
     .counter-item span { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-top: 0.5rem; display: block; }
-.quote-block { background: var(--deep); color: var(--cream); padding: 4rem 3rem; text-align: center; position: relative; overflow: hidden; }
-    .quote-block::before { content: '\201C'; font-family: 'Cormorant Garamond', serif; font-size: 15rem; color: var(--rose); opacity: 0.15; position: absolute; top: -3rem; left: 1rem; line-height: 1; }
-    .quote-block blockquote { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.3rem, 3vw, 2rem); font-style: italic; font-weight: 300; line-height: 1.6; position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
-    .quote-block cite { display: block; font-family: 'Jost', sans-serif; font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-top: 1.5rem; font-style: normal; }
-    .message-section { padding: 5rem 2rem 8rem; max-width: 700px; margin: 0 auto; text-align: center; }
-    .heart { font-size: 2rem; display: block; margin-bottom: 1.5rem; animation: pulse 2s ease-in-out infinite; }
-    footer { background: var(--deep); color: var(--blush); text-align: center; padding: 2rem; font-size: 0.75rem; letter-spacing: 0.2em; }
-    footer em { color: var(--gold); font-style: normal; }
-    .timeline-carousel-wrapper { max-width: 700px; margin: 0 auto; padding: 2rem 2rem 5rem; }
-    .month-block { margin-bottom: 4rem; }
+    /* SCROLL POR SEÇÃO */
+    .months-container { position: relative; }
+    .month-section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 3rem 2rem; max-width: 700px; margin: 0 auto; opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .month-section.visible { opacity: 1; transform: translateY(0); }
     .month-label { font-family: 'Jost', sans-serif; font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
     .carousel { position: relative; overflow: hidden; border-radius: 4px; }
     .carousel-track { display: flex; transition: transform 0.4s ease; }
     .carousel-slide { min-width: 100%; }
-    .carousel-slide img { width: 100%; height: 420px; object-fit: contain; background: var(--cream); display: block; border-radius: 4px; }
+    .carousel-slide img { width: 100%; height: 70vh; object-fit: contain; background: var(--cream); display: block; border-radius: 4px; }
+    .carousel-slide video { width: 100%; height: 70vh; object-fit: contain; display: block; border-radius: 4px; }
     .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(253,246,238,0.85); border: none; color: var(--deep); font-size: 1.8rem; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 2; transition: background 0.2s; }
     .carousel-btn:hover { background: var(--cream); }
     .carousel-btn.prev { left: 0.8rem; }
@@ -62,6 +59,19 @@
     .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blush); transition: background 0.3s; }
     .dot.active { background: var(--rose); }
     .month-text { font-size: 0.95rem; line-height: 1.8; color: var(--text); margin-top: 1rem; font-family: 'Jost', sans-serif; font-weight: 300; }
+    /* NAVEGAÇÃO LATERAL */
+    .month-nav { position: fixed; right: 1.5rem; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 8px; z-index: 100; }
+    .month-nav-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blush); cursor: pointer; transition: all 0.3s; border: none; padding: 0; }
+    .month-nav-dot.active { background: var(--rose); transform: scale(1.4); }
+    /* RESTO */
+    .quote-block { background: var(--deep); color: var(--cream); padding: 4rem 3rem; text-align: center; position: relative; overflow: hidden; }
+    .quote-block::before { content: '\201C'; font-family: 'Cormorant Garamond', serif; font-size: 15rem; color: var(--rose); opacity: 0.15; position: absolute; top: -3rem; left: 1rem; line-height: 1; }
+    .quote-block blockquote { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.3rem, 3vw, 2rem); font-style: italic; font-weight: 300; line-height: 1.6; position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+    .quote-block cite { display: block; font-family: 'Jost', sans-serif; font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-top: 1.5rem; font-style: normal; }
+    .message-section { padding: 5rem 2rem 8rem; max-width: 700px; margin: 0 auto; text-align: center; }
+    .heart { font-size: 2rem; display: block; margin-bottom: 1.5rem; animation: pulse 2s ease-in-out infinite; }
+    footer { background: var(--deep); color: var(--blush); text-align: center; padding: 2rem; font-size: 0.75rem; letter-spacing: 0.2em; }
+    footer em { color: var(--gold); font-style: normal; }
     .carta-final { border-left: 2px solid var(--blush); padding: 2rem 2rem 2rem 2.5rem; margin-top: 3rem; position: relative; }
     .carta-aspas { font-family: 'Cormorant Garamond', serif; font-size: 6rem; color: var(--blush); position: absolute; top: -1.5rem; left: 1rem; line-height: 1; opacity: 0.5; }
     .carta-final p { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-style: italic; line-height: 1.9; color: var(--text); margin-bottom: 1.2rem; position: relative; z-index: 1; }
@@ -71,7 +81,7 @@
     @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes line { 0%, 100% { transform: scaleY(1); opacity: 1; } 50% { transform: scaleY(0.5); opacity: 0.4; } }
     @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
-    @media (max-width: 500px) { .counter-grid { gap: 2rem; } }
+    @media (max-width: 500px) { .counter-grid { gap: 2rem; } .month-nav { display: none; } }
   </style>
 </head>
 <body>
@@ -105,27 +115,31 @@
 </div>
 
 <div class="divider"><span></span><i>♡</i><span></span></div>
-<div class="timeline-carousel-wrapper">
 
-<!-- MARÇO 2025 -->
-<div class="month-block">
-  <div class="month-label">Março 2025</div>
-  <div class="carousel">
-    <div class="carousel-track">
-      <div class="carousel-slide"><img src="0325.jpg" alt="Março 2025"/></div>
-      <div class="carousel-slide"><img src="0325-2.webp" alt="Março 2025"/></div>
+<!-- NAVEGAÇÃO LATERAL -->
+<nav class="month-nav" id="monthNav"></nav>
+
+<div class="months-container">
+
+ <!-- MARÇO 2025 -->
+  <div class="month-section">
+    <div class="month-label">Março 2025</div>
+    <div class="carousel">
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="0325.jpg" alt="Março 2025"/></div>
+        <div class="carousel-slide"><img src="0325-2.webp" alt="Março 2025"/></div>
+      </div>
+      <button class="carousel-btn prev">‹</button>
+      <button class="carousel-btn next">›</button>
+      <div class="carousel-dots">
+        <span class="dot active"></span><span class="dot"></span>
+      </div>
     </div>
-    <button class="carousel-btn prev">‹</button>
-    <button class="carousel-btn next">›</button>
-    <div class="carousel-dots">
-      <span class="dot active"></span><span class="dot"></span>
-    </div>
+    <p class="month-text">Nosso primeiro mês foi marcado pelo desfile das campeãs — nosso primeiro evento com sua família, onde pude fazer parte. E meu primeiro mês recebendo flores lindas pelo Dia das Mulheres. Eu realmente estava cada vez mais me apaixonando.</p>
   </div>
-  <p class="month-text">Nosso primeiro mês foi marcado pelo desfile das campeãs — nosso primeiro evento com sua família, onde pude fazer parte. E meu primeiro mês recebendo flores lindas pelo Dia das Mulheres. Eu realmente estava cada vez mais me apaixonando.</p>
-</div>
 
   <!-- ABRIL 2025 -->
-  <div class="month-block">
+  <div class="month-section">
     <div class="month-label">Abril 2025</div>
     <div class="carousel">
       <div class="carousel-track">
@@ -137,7 +151,7 @@
   </div>
 
   <!-- MAIO 2025 -->
-  <div class="month-block">
+  <div class="month-section">
     <div class="month-label">Maio 2025</div>
     <div class="carousel">
       <div class="carousel-track">
@@ -155,28 +169,28 @@
   </div>
 
   <!-- JUNHO 2025 -->
-<div class="month-block">
-  <div class="month-label">Junho 2025</div>
-  <div class="carousel">
-    <div class="carousel-track">
-      <div class="carousel-slide"><img src="0625.jpg" alt="Junho 2025"/></div>
-      <div class="carousel-slide">
-        <video autoplay loop muted playsinline style="width:100%; height:420px; object-fit:contain;">
-          <source src="0625-2.mp4" type="video/mp4">
-        </video>
+  <div class="month-section">
+    <div class="month-label">Junho 2025</div>
+    <div class="carousel">
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="0625.jpg" alt="Junho 2025"/></div>
+        <div class="carousel-slide">
+          <video autoplay loop muted playsinline style="width:100%; height:70vh; object-fit:contain;">
+            <source src="0625-2.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <button class="carousel-btn prev">‹</button>
+      <button class="carousel-btn next">›</button>
+      <div class="carousel-dots">
+        <span class="dot active"></span><span class="dot"></span>
       </div>
     </div>
-    <button class="carousel-btn prev">‹</button>
-    <button class="carousel-btn next">›</button>
-    <div class="carousel-dots">
-      <span class="dot active"></span><span class="dot"></span>
-    </div>
+    <p class="month-text"><!-- ✏️ escreva sobre junho --></p>
   </div>
-  <p class="month-text"><!-- ✏️ escreva sobre junho --></p>
-</div>
 
   <!-- JULHO 2025 -->
-  <div class="month-block">
+  <div class="month-section">
     <div class="month-label">Julho 2025</div>
     <div class="carousel">
       <div class="carousel-track">
@@ -188,7 +202,7 @@
   </div>
 
   <!-- AGOSTO 2025 -->
-  <div class="month-block">
+  <div class="month-section">
     <div class="month-label">Agosto 2025</div>
     <div class="carousel">
       <div class="carousel-track">
@@ -200,7 +214,7 @@
   </div>
 
   <!-- SETEMBRO 2025 -->
-  <div class="month-block">
+  <div class="month-section">
     <div class="month-label">Setembro 2025</div>
     <div class="carousel">
       <div class="carousel-track">
@@ -219,7 +233,7 @@
   </div>
 
   <!-- OUTUBRO 2025 -->
-  <div class="month-block">
+  <div class="month-section">
     <div class="month-label">Outubro 2025</div>
     <div class="carousel">
       <div class="carousel-track">
@@ -231,7 +245,7 @@
   </div>
 
   <!-- NOVEMBRO 2025 -->
-  <div class="month-block">
+  <div class="month-section">
     <div class="month-label">Novembro 2025</div>
     <div class="carousel">
       <div class="carousel-track">
@@ -243,7 +257,7 @@
   </div>
 
   <!-- DEZEMBRO 2025 -->
-  <div class="month-block">
+  <div class="month-section">
     <div class="month-label">Dezembro 2025</div>
     <div class="carousel">
       <div class="carousel-track">
@@ -262,7 +276,7 @@
   </div>
 
   <!-- JANEIRO 2026 -->
-  <div class="month-block">
+  <div class="month-section">
     <div class="month-label">Janeiro 2026</div>
     <div class="carousel">
       <div class="carousel-track">
@@ -280,7 +294,7 @@
   </div>
 
   <!-- FEVEREIRO 2026 -->
-  <div class="month-block">
+  <div class="month-section">
     <div class="month-label">Fevereiro 2026</div>
     <div class="carousel">
       <div class="carousel-track">
@@ -298,20 +312,23 @@
   </div>
 
   <!-- CARTA FINAL -->
-  <div class="carta-final">
-    <span class="carta-aspas">"</span>
-    <p>Nosso primeiro encontro começou lá em 2024... Num escape room, uma despedida e o florescimento de algo, até diria uma serendipidade. E um destino (bem planejado — não pelo destino) acabou nos aproximando.</p>
-    <p>Quando meu interesse por você veio à tona, você demorou um pouco pra perceber (ou não estava interessado hahah). Quando chegou o dia do "finalmente ele me chamou pra sair", foi tão natural quanto a luz do dia (eu já tinha dado umas 167 indiretas) mas fiquei tão empolgada e nervosa no dia, lembro como se fosse ontem. Nossa história começou ali, no convite, no aceite.</p>
-    <p>E aos poucos, fui me apaixonando pelo homem incrível que você é, pela sua honestidade e sinceridade, pela cautela e cuidado que tem com as coisas e pessoas, por mais que você seja meio desastrado às vezes. Me apaixono cada dia mais pelo José que eu conheci e conheço todos os dias, por mais que sejam a mesma pessoa, cada dia eu conheço coisas novas que só reafirmam o quanto eu te amo.</p>
-    <cite>— Pamella, 15.02.2026</cite>
+  <div class="month-section">
+    <div class="carta-final">
+      <span class="carta-aspas">"</span>
+      <p>Nosso primeiro encontro começou lá em 2024... Num escape room, uma despedida e o florescimento de algo, até diria uma serendipidade. E um destino (bem planejado — não pelo destino) acabou nos aproximando.</p>
+      <p>Quando meu interesse por você veio à tona, você demorou um pouco pra perceber (ou não estava interessado hahah). Quando chegou o dia do "finalmente ele me chamou pra sair", foi tão natural quanto a luz do dia (eu já tinha dado umas 167 indiretas) mas fiquei tão empolgada e nervosa no dia, lembro como se fosse ontem. Nossa história começou ali, no convite, no aceite.</p>
+      <p>E aos poucos, fui me apaixonando pelo homem incrível que você é, pela sua honestidade e sinceridade, pela cautela e cuidado que tem com as coisas e pessoas, por mais que você seja meio desastrado às vezes. Me apaixono cada dia mais pelo José que eu conheci e conheço todos os dias, por mais que sejam a mesma pessoa, cada dia eu conheço coisas novas que só reafirmam o quanto eu te amo.</p>
+      <cite>— Pamella, 15.02.2026</cite>
+    </div>
   </div>
 
 </div>
+
 <div class="quote-block">
   <blockquote>
     "O amor não é encontrar alguém com quem você consiga viver, mas alguém sem quem você não consegue viver."
   </blockquote>
-  <cite>— para Pamella & José</cite>
+  <cite>— para José</cite>
 </div>
 
 <div class="message-section">
@@ -335,6 +352,30 @@
   document.getElementById('days').textContent = diff > 0 ? diff : 365;
   document.getElementById('months').textContent = months > 0 ? months : 12;
 
+  // Navegação lateral
+  const sections = document.querySelectorAll('.month-section');
+  const nav = document.getElementById('monthNav');
+  sections.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.classList.add('month-nav-dot');
+    dot.addEventListener('click', () => sections[i].scrollIntoView({ behavior: 'smooth' }));
+    nav.appendChild(dot);
+  });
+
+  // Scroll animation + nav ativa
+  const navDots = document.querySelectorAll('.month-nav-dot');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        const idx = Array.from(sections).indexOf(entry.target);
+        navDots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => observer.observe(s));
+
+  // Coração na transição
   function spawnHeart(x, y) {
     const h = document.createElement('span');
     h.classList.add('heart-burst');
@@ -345,6 +386,7 @@
     setTimeout(() => h.remove(), 600);
   }
 
+  // Carrosséis
   document.querySelectorAll('.carousel').forEach(carousel => {
     const track = carousel.querySelector('.carousel-track');
     const dots = carousel.querySelectorAll('.dot');
@@ -359,12 +401,12 @@
       dots.forEach((d, i) => d.classList.toggle('active', i === current));
     }
 
-    if (prevBtn) prevBtn.addEventListener('click', (e) => {
+    if (prevBtn) prevBtn.addEventListener('click', () => {
       const r = prevBtn.getBoundingClientRect();
       spawnHeart(r.left + r.width / 2, r.top + r.height / 2);
       goTo(current - 1);
     });
-    if (nextBtn) nextBtn.addEventListener('click', (e) => {
+    if (nextBtn) nextBtn.addEventListener('click', () => {
       const r = nextBtn.getBoundingClientRect();
       spawnHeart(r.left + r.width / 2, r.top + r.height / 2);
       goTo(current + 1);
