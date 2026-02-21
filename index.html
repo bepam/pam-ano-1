@@ -7,421 +7,71 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet"/>
 <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --cream: #fdf6ee;
-      --blush: #e8c4b8;
-      --rose: #c07a72;
-      --deep: #3b2a2a;
-      --gold: #c9a96e;
-      --text: #5a3e3e;
+      --cream: #fdf6ee; --blush: #e8c4b8; --rose: #c07a72;
+      --deep: #3b2a2a; --gold: #c9a96e; --text: #5a3e3e;
     }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--cream);
-      color: var(--text);
-      font-family: 'Jost', sans-serif;
-      font-weight: 300;
-      overflow-x: hidden;
-    }
-
+    body { background: var(--cream); color: var(--text); font-family: 'Jost', sans-serif; font-weight: 300; overflow-x: hidden; }
     body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
+      content: ''; position: fixed; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      background-size: 200px;
-      pointer-events: none;
-      z-index: 999;
-      opacity: 0.5;
+      background-size: 200px; pointer-events: none; z-index: 999; opacity: 0.5;
     }
-  .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 3rem 2rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::after {
-      content: '';
-      position: absolute;
-      width: 600px; height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #e8c4b840 0%, transparent 70%);
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-    }
-
-    .date-label {
-      font-family: 'Jost', sans-serif;
-      font-weight: 200;
-      font-size: 0.75rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 2rem;
-      opacity: 0;
-      animation: fadeUp 1s ease forwards 0.2s;
-    }
-
-    .hero-names {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3.5rem, 10vw, 7rem);
-      font-weight: 300;
-      line-height: 1;
-      color: var(--deep);
-      opacity: 0;
-      animation: fadeUp 1s ease forwards 0.5s;
-    }
-
-    .hero-names em {
-      font-style: italic;
-      color: var(--rose);
-    }
-
-    .ampersand {
-      color: var(--gold);
-      font-style: italic;
-      margin: 0 0.3em;
-    }
-
-    .hero-subtitle {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: clamp(1rem, 3vw, 1.4rem);
-      color: var(--rose);
-      margin-top: 1.5rem;
-      opacity: 0;
-      animation: fadeUp 1s ease forwards 0.8s;
-    }
-
-    .scroll-hint {
-      position: absolute;
-      bottom: 2.5rem;
-      font-size: 0.7rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--blush);
-      opacity: 0;
-      animation: fadeUp 1s ease forwards 1.4s;
-    }
-
-    .scroll-hint::after {
-      content: '';
-      display: block;
-      width: 1px;
-      height: 40px;
-      background: var(--blush);
-      margin: 0.6rem auto 0;
-      animation: line 2s ease-in-out infinite;
-    }
-  .divider {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      padding: 0 2rem;
-      max-width: 600px;
-      margin: 0 auto;
-    }
+    .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 3rem 2rem; position: relative; overflow: hidden; }
+    .hero::after { content: ''; position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, #e8c4b840 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+    .date-label { font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.75rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; opacity: 0; animation: fadeUp 1s ease forwards 0.2s; }
+    .hero-names { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.5rem, 10vw, 7rem); font-weight: 300; line-height: 1; color: var(--deep); opacity: 0; animation: fadeUp 1s ease forwards 0.5s; }
+    .hero-names em { font-style: italic; color: var(--rose); }
+    .ampersand { color: var(--gold); font-style: italic; margin: 0 0.3em; }
+    .hero-subtitle { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(1rem, 3vw, 1.4rem); color: var(--rose); margin-top: 1.5rem; opacity: 0; animation: fadeUp 1s ease forwards 0.8s; }
+    .scroll-hint { position: absolute; bottom: 2.5rem; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blush); opacity: 0; animation: fadeUp 1s ease forwards 1.4s; }
+    .scroll-hint::after { content: ''; display: block; width: 1px; height: 40px; background: var(--blush); margin: 0.6rem auto 0; animation: line 2s ease-in-out infinite; }
+    .divider { display: flex; align-items: center; gap: 1.5rem; padding: 0 2rem; max-width: 600px; margin: 0 auto; }
     .divider span { flex: 1; height: 1px; background: var(--blush); }
     .divider i { font-style: normal; color: var(--gold); font-size: 1.1rem; }
-
-    section {
-      padding: 5rem 2rem;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1.2rem;
-    }
-
-    .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 300;
-      color: var(--deep);
-      line-height: 1.2;
-      margin-bottom: 1.8rem;
-    }
-
+    section { padding: 5rem 2rem; max-width: 700px; margin: 0 auto; }
+    .section-label { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 300; color: var(--deep); line-height: 1.2; margin-bottom: 1.8rem; }
     .section-title em { font-style: italic; color: var(--rose); }
-
-    .section-body {
-      font-size: 1rem;
-      line-height: 1.9;
-      color: var(--text);
-      font-weight: 300;
-    }
-
-    .timeline {
-      padding: 5rem 2rem;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .timeline-item {
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 1.5rem;
-      margin-bottom: 3rem;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.6s ease;
-    }
-
-    .timeline-item.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .timeline-date {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.85rem;
-      font-style: italic;
-      color: var(--gold);
-      text-align: right;
-      padding-top: 0.2rem;
-      border-right: 1px solid var(--blush);
-      padding-right: 1.5rem;
-    }
-
-    .timeline-text strong {
-      display: block;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.15rem;
-      color: var(--deep);
-      margin-bottom: 0.4rem;
-      font-weight: 400;
-    }
-
-    .timeline-text p {
-      font-size: 0.9rem;
-      line-height: 1.7;
-      color: var(--text);
-    }
-  .quote-block {
-      background: var(--deep);
-      color: var(--cream);
-      padding: 4rem 3rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .quote-block::before {
-      content: '\201C';
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 15rem;
-      color: var(--rose);
-      opacity: 0.15;
-      position: absolute;
-      top: -3rem; left: 1rem;
-      line-height: 1;
-    }
-
-    .quote-block blockquote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.3rem, 3vw, 2rem);
-      font-style: italic;
-      font-weight: 300;
-      line-height: 1.6;
-      position: relative;
-      z-index: 1;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .quote-block cite {
-      display: block;
-      font-family: 'Jost', sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-top: 1.5rem;
-      font-style: normal;
-    }
-
-    .counter-section {
-      text-align: center;
-      padding: 5rem 2rem;
-    }
-
-    .counter-grid {
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      flex-wrap: wrap;
-      margin-top: 2.5rem;
-    }
-
-    .counter-item strong {
-      display: block;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 4rem;
-      color: var(--rose);
-      line-height: 1;
-      font-weight: 300;
-    }
-
-    .counter-item span {
-      font-size: 0.7rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-top: 0.5rem;
-      display: block;
-    }
-
-    .message-section {
-      padding: 5rem 2rem 8rem;
-      max-width: 700px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .heart {
-      font-size: 2rem;
-      display: block;
-      margin-bottom: 1.5rem;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    footer {
-      background: var(--deep);
-      color: var(--blush);
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-    }
-
+    .section-body { font-size: 1rem; line-height: 1.9; color: var(--text); font-weight: 300; }
+    .counter-section { text-align: center; padding: 5rem 2rem; }
+    .counter-grid { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-top: 2.5rem; }
+    .counter-item strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 4rem; color: var(--rose); line-height: 1; font-weight: 300; }
+    .counter-item span { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-top: 0.5rem; display: block; }
+.quote-block { background: var(--deep); color: var(--cream); padding: 4rem 3rem; text-align: center; position: relative; overflow: hidden; }
+    .quote-block::before { content: '\201C'; font-family: 'Cormorant Garamond', serif; font-size: 15rem; color: var(--rose); opacity: 0.15; position: absolute; top: -3rem; left: 1rem; line-height: 1; }
+    .quote-block blockquote { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.3rem, 3vw, 2rem); font-style: italic; font-weight: 300; line-height: 1.6; position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+    .quote-block cite { display: block; font-family: 'Jost', sans-serif; font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-top: 1.5rem; font-style: normal; }
+    .message-section { padding: 5rem 2rem 8rem; max-width: 700px; margin: 0 auto; text-align: center; }
+    .heart { font-size: 2rem; display: block; margin-bottom: 1.5rem; animation: pulse 2s ease-in-out infinite; }
+    footer { background: var(--deep); color: var(--blush); text-align: center; padding: 2rem; font-size: 0.75rem; letter-spacing: 0.2em; }
     footer em { color: var(--gold); font-style: normal; }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes line {
-      0%, 100% { transform: scaleY(1); opacity: 1; }
-      50% { transform: scaleY(0.5); opacity: 0.4; }
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.12); }
-    }
-
-    @media (max-width: 500px) {
-      .counter-grid { gap: 2rem; }
-      .timeline-item { grid-template-columns: 60px 1fr; }
-    }
-
-.timeline-carousel-wrapper {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 2rem 2rem 5rem;
-}
-.month-block { margin-bottom: 4rem; }
-.month-label {
-  font-family: 'Jost', sans-serif;
-  font-size: 0.7rem;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 1rem;
-}
-.carousel { position: relative; overflow: hidden; border-radius: 4px; }
-.carousel-track { display: flex; transition: transform 0.4s ease; }
-.carousel-slide { min-width: 100%; }
-.carousel-slide img {
-  width: 100%;
-  height: 420px;
-  object-fit: cover;
-  display: block;
-  border-radius: 4px;
-}
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(253,246,238,0.85);
-  border: none;
-  color: var(--deep);
-  font-size: 1.8rem;
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  transition: background 0.2s;
-}
-.carousel-btn:hover { background: var(--cream); }
-.carousel-btn.prev { left: 0.8rem; }
-.carousel-btn.next { right: 0.8rem; }
-.carousel-dots { display: flex; justify-content: center; gap: 6px; padding: 0.8rem 0 0.2rem; }
-.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blush); transition: background 0.3s; }
-.dot.active { background: var(--rose); }
-.month-text {
-  font-size: 0.95rem;
-  line-height: 1.8;
-  color: var(--text);
-  margin-top: 1rem;
-  font-family: 'Jost', sans-serif;
-  font-weight: 300;
-}
-.carta-final {
-  border-left: 2px solid var(--blush);
-  padding: 2rem 2rem 2rem 2.5rem;
-  margin-top: 3rem;
-  position: relative;
-}
-.carta-aspas {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 6rem;
-  color: var(--blush);
-  position: absolute;
-  top: -1.5rem; left: 1rem;
-  line-height: 1;
-  opacity: 0.5;
-}
-.carta-final p {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem;
-  font-style: italic;
-  line-height: 1.9;
-  color: var(--text);
-  margin-bottom: 1.2rem;
-  position: relative;
-  z-index: 1;
-}
-.carta-final cite {
-  display: block;
-  font-family: 'Jost', sans-serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--gold);
-  font-style: normal;
-  margin-top: 1.5rem;
-}
-
+    .timeline-carousel-wrapper { max-width: 700px; margin: 0 auto; padding: 2rem 2rem 5rem; }
+    .month-block { margin-bottom: 4rem; }
+    .month-label { font-family: 'Jost', sans-serif; font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .carousel { position: relative; overflow: hidden; border-radius: 4px; }
+    .carousel-track { display: flex; transition: transform 0.4s ease; }
+    .carousel-slide { min-width: 100%; }
+    .carousel-slide img { width: 100%; height: 420px; object-fit: cover; display: block; border-radius: 4px; }
+    .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(253,246,238,0.85); border: none; color: var(--deep); font-size: 1.8rem; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 2; transition: background 0.2s; }
+    .carousel-btn:hover { background: var(--cream); }
+    .carousel-btn.prev { left: 0.8rem; }
+    .carousel-btn.next { right: 0.8rem; }
+    .carousel-dots { display: flex; justify-content: center; gap: 6px; padding: 0.8rem 0 0.2rem; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blush); transition: background 0.3s; }
+    .dot.active { background: var(--rose); }
+    .month-text { font-size: 0.95rem; line-height: 1.8; color: var(--text); margin-top: 1rem; font-family: 'Jost', sans-serif; font-weight: 300; }
+    .carta-final { border-left: 2px solid var(--blush); padding: 2rem 2rem 2rem 2.5rem; margin-top: 3rem; position: relative; }
+    .carta-aspas { font-family: 'Cormorant Garamond', serif; font-size: 6rem; color: var(--blush); position: absolute; top: -1.5rem; left: 1rem; line-height: 1; opacity: 0.5; }
+    .carta-final p { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-style: italic; line-height: 1.9; color: var(--text); margin-bottom: 1.2rem; position: relative; z-index: 1; }
+    .carta-final cite { display: block; font-family: 'Jost', sans-serif; font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); font-style: normal; margin-top: 1.5rem; }
+    .heart-burst { position: fixed; pointer-events: none; font-size: 1.5rem; z-index: 9999; animation: heartPop 0.6s ease forwards; }
+    @keyframes heartPop { 0% { opacity: 1; transform: scale(0.5) translateY(0); } 100% { opacity: 0; transform: scale(1.5) translateY(-40px); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes line { 0%, 100% { transform: scaleY(1); opacity: 1; } 50% { transform: scaleY(0.5); opacity: 0.4; } }
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+    @media (max-width: 500px) { .counter-grid { gap: 2rem; } }
   </style>
 </head>
 <body>
@@ -439,9 +89,234 @@
 
 <div class="divider"><span></span><i>♡</i><span></span></div>
 
+<section>
+  <p class="section-label">Nossa história</p>
+  <h2 class="section-title">12 meses de<br><em>momentos especiais</em></h2>
+  <p class="section-body">A nossa linha do tempo desses 12 meses juntos, foram momentos especiais marcados especificamente por alguns eventos e acontecimentos.</p>
+</section>
+
+<div class="counter-section">
+  <p class="section-label">Em números</p>
+  <div class="counter-grid">
+    <div class="counter-item"><strong id="days">365</strong><span>dias juntos</span></div>
+    <div class="counter-item"><strong>∞</strong><span>amor</span></div>
+    <div class="counter-item"><strong id="months">12</strong><span>meses</span></div>
+  </div>
+</div>
+
+<div class="divider"><span></span><i>♡</i><span></span></div>
+<div class="timeline-carousel-wrapper">
+
+  <!-- MARÇO 2025 -->
+  <div class="month-block">
+    <div class="month-label">Março 2025</div>
+    <div class="carousel">
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="0325.jpg" alt="Março 2025"/></div>
+      </div>
+      <div class="carousel-dots"><span class="dot active"></span></div>
+    </div>
+    <p class="month-text"><!-- ✏️ escreva sobre março --></p>
+  </div>
+
+  <!-- ABRIL 2025 -->
+  <div class="month-block">
+    <div class="month-label">Abril 2025</div>
+    <div class="carousel">
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="0425.jpg" alt="Abril 2025"/></div>
+      </div>
+      <div class="carousel-dots"><span class="dot active"></span></div>
+    </div>
+    <p class="month-text"><!-- ✏️ escreva sobre abril --></p>
+  </div>
+
+  <!-- MAIO 2025 -->
+  <div class="month-block">
+    <div class="month-label">Maio 2025</div>
+    <div class="carousel">
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="0525.jpg" alt="Maio 2025"/></div>
+        <div class="carousel-slide"><img src="0525-2.jpg" alt="Maio 2025"/></div>
+        <div class="carousel-slide"><img src="0525-4.jpg" alt="Maio 2025"/></div>
+        <div class="carousel-slide"><img src="0525-5.jpg" alt="Maio 2025"/></div>
+      </div>
+      <button class="carousel-btn prev">‹</button>
+      <button class="carousel-btn next">›</button>
+      <div class="carousel-dots">
+        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+    </div>
+    <p class="month-text"><!-- ✏️ escreva sobre maio --></p>
+  </div>
+
+  <!-- JUNHO 2025 -->
+  <div class="month-block">
+    <div class="month-label">Junho 2025</div>
+    <div class="carousel">
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="0625.jpg" alt="Junho 2025"/></div>
+        <div class="carousel-slide"><img src="0625-2.mp4" alt="Junho 2025"/></div>
+      </div>
+      <button class="carousel-btn prev">‹</button>
+      <button class="carousel-btn next">›</button>
+      <div class="carousel-dots">
+        <span class="dot active"></span><span class="dot"></span>
+      </div>
+    </div>
+    <p class="month-text"><!-- ✏️ escreva sobre junho --></p>
+  </div>
+
+  <!-- JULHO 2025 -->
+  <div class="month-block">
+    <div class="month-label">Julho 2025</div>
+    <div class="carousel">
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="0725.jpg" alt="Julho 2025"/></div>
+      </div>
+      <div class="carousel-dots"><span class="dot active"></span></div>
+    </div>
+    <p class="month-text"><!-- ✏️ escreva sobre julho --></p>
+  </div>
+
+  <!-- AGOSTO 2025 -->
+  <div class="month-block">
+    <div class="month-label">Agosto 2025</div>
+    <div class="carousel">
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="0825.jpg" alt="Agosto 2025"/></div>
+      </div>
+      <div class="carousel-dots"><span class="dot active"></span></div>
+    </div>
+    <p class="month-text"><!-- ✏️ escreva sobre agosto --></p>
+  </div>
+
+  <!-- SETEMBRO 2025 -->
+  <div class="month-block">
+    <div class="month-label">Setembro 2025</div>
+    <div class="carousel">
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="0925.jpg" alt="Setembro 2025"/></div>
+        <div class="carousel-slide"><img src="0925-2.jpg" alt="Setembro 2025"/></div>
+        <div class="carousel-slide"><img src="0925-3.jpg" alt="Setembro 2025"/></div>
+        <div class="carousel-slide"><img src="0925-4.jpg" alt="Setembro 2025"/></div>
+      </div>
+      <button class="carousel-btn prev">‹</button>
+      <button class="carousel-btn next">›</button>
+      <div class="carousel-dots">
+        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+    </div>
+    <p class="month-text"><!-- ✏️ escreva sobre setembro --></p>
+  </div>
+
+  <!-- OUTUBRO 2025 -->
+  <div class="month-block">
+    <div class="month-label">Outubro 2025</div>
+    <div class="carousel">
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="1025.jpg" alt="Outubro 2025"/></div>
+      </div>
+      <div class="carousel-dots"><span class="dot active"></span></div>
+    </div>
+    <p class="month-text"><!-- ✏️ escreva sobre outubro --></p>
+  </div>
+
+  <!-- NOVEMBRO 2025 -->
+  <div class="month-block">
+    <div class="month-label">Novembro 2025</div>
+    <div class="carousel">
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="1125.jpg" alt="Novembro 2025"/></div>
+      </div>
+      <div class="carousel-dots"><span class="dot active"></span></div>
+    </div>
+    <p class="month-text"><!-- ✏️ escreva sobre novembro --></p>
+  </div>
+
+  <!-- DEZEMBRO 2025 -->
+  <div class="month-block">
+    <div class="month-label">Dezembro 2025</div>
+    <div class="carousel">
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="1225.jpg" alt="Dezembro 2025"/></div>
+        <div class="carousel-slide"><img src="1225-2.jpg" alt="Dezembro 2025"/></div>
+        <div class="carousel-slide"><img src="1225-3.jpg" alt="Dezembro 2025"/></div>
+        <div class="carousel-slide"><img src="1225-4.mp4" alt="Dezembro 2025"/></div>
+      </div>
+      <button class="carousel-btn prev">‹</button>
+      <button class="carousel-btn next">›</button>
+      <div class="carousel-dots">
+        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+    </div>
+    <p class="month-text"><!-- ✏️ escreva sobre dezembro --></p>
+  </div>
+
+  <!-- JANEIRO 2026 -->
+  <div class="month-block">
+    <div class="month-label">Janeiro 2026</div>
+    <div class="carousel">
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="0126.jpg" alt="Janeiro 2026"/></div>
+        <div class="carousel-slide"><img src="0126-2.jpg" alt="Janeiro 2026"/></div>
+        <div class="carousel-slide"><img src="0126-3.jpg" alt="Janeiro 2026"/></div>
+      </div>
+      <button class="carousel-btn prev">‹</button>
+      <button class="carousel-btn next">›</button>
+      <div class="carousel-dots">
+        <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+    </div>
+    <p class="month-text"><!-- ✏️ escreva sobre janeiro --></p>
+  </div>
+
+  <!-- FEVEREIRO 2026 -->
+  <div class="month-block">
+    <div class="month-label">Fevereiro 2026</div>
+    <div class="carousel">
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="0226.jpg" alt="Fevereiro 2026"/></div>
+        <div class="carousel-slide"><img src="0226-2.jpg" alt="Fevereiro 2026"/></div>
+        <div class="carousel-slide"><img src="0226-3.jpg" alt="Fevereiro 2026"/></div>
+      </div>
+      <button class="carousel-btn prev">‹</button>
+      <button class="carousel-btn next">›</button>
+      <div class="carousel-dots">
+        <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+    </div>
+    <p class="month-text"><!-- ✏️ escreva sobre fevereiro --></p>
+  </div>
+
+  <!-- CARTA FINAL -->
+  <div class="carta-final">
+    <span class="carta-aspas">"</span>
+    <p>Nosso primeiro encontro começou lá em 2024... Num escape room, uma despedida e o florescimento de algo, até diria uma serendipidade. E um destino (bem planejado — não pelo destino) acabou nos aproximando.</p>
+    <p>Quando meu interesse por você veio à tona, você demorou um pouco pra perceber (ou não estava interessado hahah). Quando chegou o dia do "finalmente ele me chamou pra sair", foi tão natural quanto a luz do dia (eu já tinha dado umas 167 indiretas) mas fiquei tão empolgada e nervosa no dia, lembro como se fosse ontem. Nossa história começou ali, no convite, no aceite.</p>
+    <p>E aos poucos, fui me apaixonando pelo homem incrível que você é, pela sua honestidade e sinceridade, pela cautela e cuidado que tem com as coisas e pessoas, por mais que você seja meio desastrado às vezes. Me apaixono cada dia mais pelo José que eu conheci e conheço todos os dias, por mais que sejam a mesma pessoa, cada dia eu conheço coisas novas que só reafirmam o quanto eu te amo.</p>
+    <cite>— Pamella, 15.02.2026</cite>
+  </div>
+
+</div>
+<div class="quote-block">
+  <blockquote>
+    "O amor não é encontrar alguém com quem você consiga viver, mas alguém sem quem você não consegue viver."
+  </blockquote>
+  <cite>— para Pamella & José</cite>
+</div>
+
+<div class="message-section">
+  <span class="heart">♡</span>
+  <p class="section-label">Para você</p>
+  <h2 class="section-title" style="text-align:center;"><em>Feliz aniversário,<br>meu amor</em></h2>
+  <p class="section-body" style="text-align:center; margin-top:1.5rem;">
+    Que esse primeiro ano seja só o começo de uma história linda, cheia de amor, cumplicidade e momentos inesquecíveis. Te amo hoje, amanhã e sempre.
+  </p>
+</div>
 
 <footer>
-  <p>Feito com <em>♡</em> para <em>José Guilherme Martins dos Santos </em> · 15.02.2026</p>
+  <p>Feito com <em>♡</em> para <em>José Guilherme Martins dos Santos</em> · 15.02.2026</p>
 </footer>
 
 <script>
@@ -452,11 +327,41 @@
   document.getElementById('days').textContent = diff > 0 ? diff : 365;
   document.getElementById('months').textContent = months > 0 ? months : 12;
 
-  const items = document.querySelectorAll('.timeline-item');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.2 });
-  items.forEach(i => observer.observe(i));
+  function spawnHeart(x, y) {
+    const h = document.createElement('span');
+    h.classList.add('heart-burst');
+    h.textContent = '♡';
+    h.style.left = x + 'px';
+    h.style.top = y + 'px';
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 600);
+  }
+
+  document.querySelectorAll('.carousel').forEach(carousel => {
+    const track = carousel.querySelector('.carousel-track');
+    const dots = carousel.querySelectorAll('.dot');
+    const prevBtn = carousel.querySelector('.prev');
+    const nextBtn = carousel.querySelector('.next');
+    let current = 0;
+    const total = carousel.querySelectorAll('.carousel-slide').length;
+
+    function goTo(index) {
+      current = (index + total) % total;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', (e) => {
+      const r = prevBtn.getBoundingClientRect();
+      spawnHeart(r.left + r.width / 2, r.top + r.height / 2);
+      goTo(current - 1);
+    });
+    if (nextBtn) nextBtn.addEventListener('click', (e) => {
+      const r = nextBtn.getBoundingClientRect();
+      spawnHeart(r.left + r.width / 2, r.top + r.height / 2);
+      goTo(current + 1);
+    });
+  });
 </script>
 
 </body>
