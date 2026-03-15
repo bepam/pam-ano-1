@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fdf9f4">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Floresça">
+<title>Floresça ✦ Finanças</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --rose:#f2c4c4;--rose-d:#e89898;--rose-t:#7a3535;
+  --sage:#bdd4b5;--sage-d:#94b889;--sage-t:#2d5225;
+  --lav:#dccff0;--lav-d:#b8a0d8;--lav-t:#52357a;
+  --peach:#f5ddc8;--peach-d:#e8c0a0;--peach-t:#7a4a25;
+  --cream:#fdf9f4;--sand:#f0e6d8;--sand2:#e4d5c0;
+  --white:#fffdf9;--border:rgba(60,45,35,.1);
+  --txt:#332820;--txt2:#7a6555;--txt3:#b09888;
+  --neg:#e07070;--neg-bg:#fceaea;
+  --pos:#70b870;--pos-bg:#eaf4ea;
+  --warn:#e8a840;--warn-bg:#fef5e0;
+  --nav-h:68px;--top-h:56px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--txt);font-size:14px;height:100dvh;overflow:hidden;overscroll-behavior:none;}
+.shell{display:flex;flex-direction:column;height:100dvh;max-width:430px;margin:0 auto;background:var(--cream);position:relative;}
+.topbar{height:var(--top-h);display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:var(--white);border-bottom:1px solid var(--border);flex-shrink:0;z-index:10;}
+.logo{font-family:'Playfair Display',serif;font-size:19px;color:var(--rose-t);font-style:italic;}
+.logo-dot{color:var(--lav-d);font-style:normal;}
+.icon-btn{background:none;border:none;cursor:pointer;padding:6px;border-radius:10px;display:flex;align-items:center;justify-content:center;transition:background .15s;position:relative;}
+.notif-dot{width:7px;height:7px;background:var(--rose-d);border-radius:50%;position:absolute;top:4px;right:4px;display:none;}
+.pages{flex:1;overflow:hidden;position:relative;}
+.page{position:absolute;inset:0;overflow-y:auto;padding:16px 16px calc(var(--nav-h) + 16px);opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .22s ease,transform .22s ease;}
+.page.active{opacity:1;pointer-events:all;transform:translateY(0);}
+.page::-webkit-scrollbar{width:0;}
+.bottomnav{height:var(--nav-h);background:var(--white);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-around;padding:0 8px 4px;flex-shrink:0;z-index:20;}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 10px;border-radius:14px;cursor:pointer;border:none;background:none;flex:1;transition:all .18s;}
+.nav-item span{font-size:10px;font-weight:700;color:var(--txt3);transition:color .18s;letter-spacing:.3px;}
+.nav-item.active span{color:var(--rose-t);}
+.nav-item.active svg{stroke:var(--rose-d) !important;}
+.nav-add{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--rose-d),var(--lav-d));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(184,160,216,.5);transition:transform .18s;flex-shrink:0;}
+.nav-add:active{transform:scale(.94);}
+.hero{background:linear-gradient(145deg,#f0d8e8 0%,#e8d0f0 50%,#d8e0f0 100%);border-radius:22px;padding:22px 20px 18px;margin-bottom:14px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-30px;bottom:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.18);}
+.hero-mo{font-size:12px;color:var(--lav-t);font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.mth-btn{background:none;border:none;cursor:pointer;color:var(--lav-t);font-size:18px;padding:0 3px;line-height:1;}
+.hero-bal{font-family:'Playfair Display',serif;font-size:36px;color:var(--txt);margin-bottom:4px;line-height:1.1;}
+.hero-sub{font-size:12px;color:var(--txt2);}
+.hero-chips{display:flex;gap:8px;margin-top:14px;}
+.chip{background:rgba(255,255,255,.65);border-radius:10px;padding:8px 12px;flex:1;backdrop-filter:blur(4px);}
+.chip-lbl{font-size:10px;color:var(--txt2);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;}
+.chip-val{font-size:13px;font-weight:700;}
+.chip-val.p{color:var(--sage-t);}
+.chip-val.n{color:var(--rose-t);}
+.chip-val.m{color:var(--txt2);}
+.alert-box{background:var(--warn-bg);border:1px solid #f0d090;border-radius:16px;padding:13px 14px;margin-bottom:12px;}
+.alert-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;}
+.alert-ttl{font-size:13px;font-weight:700;color:#7a5010;display:flex;align-items:center;gap:6px;}
+.alert-x{background:none;border:none;color:#b08030;cursor:pointer;font-size:20px;line-height:1;padding:0;}
+.alert-item{font-size:12px;color:#9a6820;padding:2px 0;display:flex;align-items:center;gap:6px;}
+.alert-item::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--warn);flex-shrink:0;}
+.view-toggle{display:flex;background:var(--sand);border-radius:12px;padding:3px;margin-bottom:12px;}
+.vt{flex:1;padding:7px;border:none;border-radius:9px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;background:none;color:var(--txt3);transition:all .18s;display:flex;align-items:center;justify-content:center;gap:5px;}
+.vt.active{background:var(--white);color:var(--txt);box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.card{background:var(--white);border:1px solid var(--border);border-radius:18px;padding:16px;margin-bottom:12px;}
+.chart-wrap{position:relative;height:190px;margin-top:4px;}
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.sec-ttl{font-size:12px;font-weight:700;color:var(--txt2);text-transform:uppercase;letter-spacing:.7px;}
+.sec-lnk{font-size:12px;color:var(--lav-t);background:none;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;}
+.fbar{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:12px;scrollbar-width:none;}
+.fbar::-webkit-scrollbar{display:none;}
+.fchip{padding:6px 14px;border-radius:20px;border:1px solid var(--border);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;background:var(--white);color:var(--txt2);white-space:nowrap;transition:all .15s;}
+.fchip.active{background:var(--rose-d);border-color:var(--rose-d);color:var(--rose-t);}
+.tx{display:flex;align-items:center;gap:11px;padding:9px 0;border-bottom:1px solid var(--border);}
+.tx:last-child{border-bottom:none;}
+.tx-ico{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.tx-info{flex:1;min-width:0;}
+.tx-name{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tx-sub{font-size:11px;color:var(--txt3);margin-top:1px;}
+.tx-tags{display:flex;gap:3px;margin-top:3px;flex-wrap:wrap;}
+.pill{font-size:10px;padding:2px 7px;border-radius:8px;font-weight:700;}
+.pill.credito{background:var(--lav);color:var(--lav-t);}
+.pill.debito{background:var(--sage);color:var(--sage-t);}
+.pill.pix{background:#d0f0e8;color:#1a6050;}
+.pill.dinheiro{background:var(--peach);color:var(--peach-t);}
+.pill.receita{background:var(--pos-bg);color:var(--sage-t);}
+.pill.rec{background:var(--rose);color:var(--rose-t);}
+.pill.parc{background:var(--lav);color:var(--lav-t);}
+.tx-amt{font-size:14px;font-weight:700;flex-shrink:0;}
+.tx-amt.n{color:var(--neg);}
+.tx-amt.p{color:var(--pos);}
+.tx-del{background:none;border:none;color:var(--txt3);cursor:pointer;font-size:17px;padding:4px;border-radius:8px;flex-shrink:0;}
+.tx-del:hover{color:var(--neg);}
+.cartao{border-radius:18px;padding:18px;color:#fff;position:relative;overflow:hidden;margin-bottom:10px;}
+.cartao::before{content:'';position:absolute;right:-25px;top:-25px;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.1);}
+.c-name{font-size:11px;font-weight:700;opacity:.85;letter-spacing:.6px;text-transform:uppercase;margin-bottom:10px;}
+.c-val{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:2px;}
+.c-lim{font-size:11px;opacity:.65;margin-bottom:10px;}
+.c-bar-bg{height:3px;background:rgba(255,255,255,.2);border-radius:2px;}
+.c-bar-fill{height:3px;background:rgba(255,255,255,.75);border-radius:2px;}
+.c-footer{display:flex;justify-content:space-between;align-items:center;margin-top:10px;}
+.c-venc{font-size:11px;opacity:.7;}
+.c-del{background:rgba(255,255,255,.15);border:none;border-radius:8px;color:#fff;font-size:11px;padding:3px 10px;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;}
+.bill{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);}
+.bill:last-child{border-bottom:none;}
+.bdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.binfo{flex:1;}
+.bname{font-size:13px;font-weight:700;}
+.bsub{font-size:11px;color:var(--txt3);margin-top:1px;}
+.bamt{font-size:13px;font-weight:700;color:var(--neg);}
+.bbadge{font-size:10px;padding:2px 8px;border-radius:8px;font-weight:700;flex-shrink:0;}
+.bbadge.ok{background:var(--pos-bg);color:var(--sage-t);}
+.bbadge.warn{background:var(--warn-bg);color:#8a5010;}
+.bbadge.late{background:var(--neg-bg);color:var(--rose-t);}
+.bdel{background:none;border:none;color:var(--txt3);cursor:pointer;font-size:15px;padding:3px;border-radius:7px;}
+.prow{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;margin-bottom:4px;}
+.prow:hover{background:var(--sand);}
+.pmo{font-size:12px;font-weight:700;width:64px;flex-shrink:0;}
+.pwrap{flex:1;}
+.pbar{height:5px;border-radius:3px;}
+.fp{background:var(--sage-d);border-radius:3px;height:100%;}
+.fn{background:var(--rose-d);border-radius:3px;height:100%;}
+.pnum{font-size:11px;font-weight:700;min-width:70px;text-align:right;flex-shrink:0;}
+.pnum.pos{color:var(--sage-t);}
+.pnum.neg{color:var(--rose-t);}
+.pbadge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:7px;flex-shrink:0;}
+.pbadge.pos{background:var(--pos-bg);color:var(--sage-t);}
+.pbadge.neg{background:var(--neg-bg);color:var(--rose-t);}
+.ptitle{font-family:'Playfair Display',serif;font-size:22px;color:var(--txt);margin-bottom:16px;}
+.empty{text-align:center;padding:28px 16px;color:var(--txt3);}
+.eico{font-size:30px;margin-bottom:6px;}
+.etxt{font-size:13px;}
+.overlay{position:fixed;inset:0;background:rgba(50,35,25,.4);z-index:100;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .22s;backdrop-filter:blur(2px);}
+.overlay.open{opacity:1;pointer-events:all;}
+.sheet{background:var(--white);border-radius:24px 24px 0 0;padding:20px 20px 36px;width:100%;max-width:430px;max-height:92dvh;overflow-y:auto;transform:translateY(30px);transition:transform .24s cubic-bezier(.32,1,.48,1);}
+.overlay.open .sheet{transform:translateY(0);}
+.sheet-handle{width:36px;height:4px;background:var(--sand2);border-radius:2px;margin:0 auto 18px;}
+.sheet-ttl{font-family:'Playfair Display',serif;font-size:20px;margin-bottom:16px;}
+.flbl{font-size:11px;font-weight:700;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:5px;}
+.frow{margin-bottom:13px;}
+.inp,.sel{width:100%;padding:11px 13px;border:1px solid var(--border);border-radius:12px;font-family:'Nunito',sans-serif;font-size:14px;color:var(--txt);background:var(--cream);outline:none;transition:border .18s;}
+.inp:focus,.sel:focus{border-color:var(--rose-d);}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.tipo-row{display:flex;gap:6px;flex-wrap:wrap;}
+.tbtn{padding:8px 14px;border-radius:20px;border:1.5px solid var(--border);font-size:12px;font-weight:700;cursor:pointer;background:none;color:var(--txt2);font-family:'Nunito',sans-serif;transition:all .15s;}
+.tbtn.active{border-color:transparent;}
+.tbtn.t-debito.active{background:var(--sage);color:var(--sage-t);}
+.tbtn.t-credito.active{background:var(--lav);color:var(--lav-t);}
+.tbtn.t-pix.active{background:#d0f0e8;color:#1a6050;}
+.tbtn.t-dinheiro.active{background:var(--peach);color:var(--peach-t);}
+.tbtn.t-receita.active{background:var(--pos-bg);color:var(--sage-t);}
+.btn-row{display:flex;gap:8px;margin-top:18px;}
+.bcnl{flex:1;padding:12px;border:1px solid var(--border);border-radius:14px;background:none;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:var(--txt2);cursor:pointer;}
+.bsave{flex:2;padding:12px;background:linear-gradient(135deg,var(--rose-d),var(--lav-d));border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:#fff;cursor:pointer;box-shadow:0 4px 12px rgba(184,160,216,.4);}
+.add-btn{border:none;border-radius:12px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;}
+.toast{position:fixed;bottom:calc(var(--nav-h) + 14px);left:50%;transform:translateX(-50%) translateY(8px);background:var(--sage-t);color:#fff;padding:8px 20px;border-radius:20px;font-size:12px;font-weight:700;opacity:0;transition:all .25s;z-index:200;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="topbar">
+    <div class="logo">Floresça <span class="logo-dot">✦</span></div>
+    <button class="icon-btn" onclick="goPage('cartoes')">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <div class="notif-dot" id="notif-dot"></div>
+    </button>
+  </div>
+
+  <div class="pages">
+    <!-- HOME -->
+    <div class="page active" id="pg-home">
+      <div class="alert-box" id="alert-box" style="display:none">
+        <div class="alert-hdr">
+          <div class="alert-ttl">⚠ Vencimentos próximos</div>
+          <button class="alert-x" onclick="document.getElementById('alert-box').style.display='none'">×</button>
+        </div>
+        <div id="alert-items"></div>
+      </div>
+      <div class="hero">
+        <div class="hero-mo">
+          <button class="mth-btn" onclick="changeMonth(-1)">‹</button>
+          <span id="hero-month"></span>
+          <button class="mth-btn" onclick="changeMonth(1)">›</button>
+        </div>
+        <div class="hero-bal" id="hero-bal">R$ 0,00</div>
+        <div class="hero-sub" id="hero-sub">Saldo do mês</div>
+        <div class="hero-chips">
+          <div class="chip"><div class="chip-lbl">Receitas</div><div class="chip-val p" id="chip-inc">R$ 0</div></div>
+          <div class="chip"><div class="chip-lbl">Gastos</div><div class="chip-val n" id="chip-exp">R$ 0</div></div>
+          <div class="chip"><div class="chip-lbl">Projetado</div><div class="chip-val m" id="chip-proj">R$ 0</div></div>
+        </div>
+      </div>
+      <div class="view-toggle">
+        <button class="vt active" id="vt-c" onclick="setHV('chart')">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Gráfico
+        </button>
+        <button class="vt" id="vt-l" onclick="setHV('list')">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          Lista
+        </button>
+      </div>
+      <div id="hv-chart"><div class="card"><div class="sec-hdr"><span class="sec-ttl">Últimos 6 meses</span></div><div class="chart-wrap"><canvas id="homeChart"></canvas></div></div></div>
+      <div id="hv-list" style="display:none"><div class="card"><div class="sec-hdr"><span class="sec-ttl">Recentes</span><button class="sec-lnk" onclick="goPage('lancamentos')">Ver todos →</button></div><div id="home-tx"></div></div></div>
+    </div>
+
+    <!-- LANÇAMENTOS -->
+    <div class="page" id="pg-lancamentos">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+        <div class="ptitle" style="margin-bottom:0">Lançamentos</div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <button class="mth-btn" style="font-size:18px;color:var(--txt2);background:none;border:none;cursor:pointer;" onclick="changeMonth(-1)">‹</button>
+          <span id="lanc-mo" style="font-size:13px;font-weight:700;color:var(--txt2);min-width:88px;text-align:center;"></span>
+          <button class="mth-btn" style="font-size:18px;color:var(--txt2);background:none;border:none;cursor:pointer;" onclick="changeMonth(1)">›</button>
+        </div>
+      </div>
+      <div class="fbar">
+        <div class="fchip active" onclick="setFilter(this,'')">Todos</div>
+        <div class="fchip" onclick="setFilter(this,'receita')">Receitas</div>
+        <div class="fchip" onclick="setFilter(this,'credito')">Crédito</div>
+        <div class="fchip" onclick="setFilter(this,'debito')">Débito</div>
+        <div class="fchip" onclick="setFilter(this,'pix')">Pix</div>
+        <div class="fchip" onclick="setFilter(this,'dinheiro')">Dinheiro</div>
+      </div>
+      <div class="card" id="lanc-list"></div>
+    </div>
+
+    <!-- CARTÕES -->
+    <div class="page" id="pg-cartoes">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+        <div class="ptitle" style="margin-bottom:0">Cartões</div>
+        <button class="add-btn" style="background:var(--rose);color:var(--rose-t);" onclick="openSheet('cartao')">+ Cartão</button>
+      </div>
+      <div id="cartoes-list"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin:8px 0 12px;">
+        <div style="font-family:'Playfair Display',serif;font-size:18px;">Contas Fixas</div>
+        <button class="add-btn" style="background:var(--lav);color:var(--lav-t);" onclick="openSheet('fixa')">+ Conta</button>
+      </div>
+      <div class="card" id="fixas-list"></div>
+    </div>
+
+    <!-- PROJEÇÃO -->
+    <div class="page" id="pg-projecao">
+      <div class="ptitle">Projeção</div>
+      <div class="card" style="margin-bottom:12px;"><div class="sec-hdr"><span class="sec-ttl">Tendência do saldo</span></div><div class="chart-wrap"><canvas id="projChart"></canvas></div></div>
+      <div class="card" style="margin-bottom:12px;"><div class="sec-hdr"><span class="sec-ttl">Receitas recorrentes</span></div><div id="rec-list"></div></div>
+      <div class="card"><div class="sec-hdr"><span class="sec-ttl">Mês a mês</span></div><div id="proj-rows"></div></div>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="bottomnav">
+    <button class="nav-item active" id="nav-home" onclick="goPage('home')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
+        <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="3" height="7" rx="1.5"/><rect x="18" y="14" width="3" height="3" rx="1"/><rect x="18" y="18" width="3" height="3" rx="1"/>
+      </svg>
+      <span>Resumo</span>
+    </button>
+    <button class="nav-item" id="nav-lancamentos" onclick="goPage('lancamentos')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+      </svg>
+      <span>Extratos</span>
+    </button>
+    <button class="nav-add" onclick="openSheet('lancamento')">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </button>
+    <button class="nav-item" id="nav-cartoes" onclick="goPage('cartoes')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="1" y="4" width="22" height="16" rx="3"/><line x1="1" y1="10" x2="23" y2="10"/>
+      </svg>
+      <span>Cartões</span>
+    </button>
+    <button class="nav-item" id="nav-projecao" onclick="goPage('projecao')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+      </svg>
+      <span>Projeção</span>
+    </button>
+  </div>
+</div>
+
+<div class="toast" id="toast">✦ Salvo</div>
+
+<!-- SHEET LANÇAMENTO -->
+<div class="overlay" id="sheet-lancamento">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-ttl">Novo lançamento</div>
+    <div class="frow"><label class="flbl">Tipo</label>
+      <div class="tipo-row" id="tipo-row">
+        <button class="tbtn t-debito active" onclick="setTipo(this,'debito')">Débito</button>
+        <button class="tbtn t-credito" onclick="setTipo(this,'credito')">Crédito</button>
+        <button class="tbtn t-pix" onclick="setTipo(this,'pix')">Pix</button>
+        <button class="tbtn t-dinheiro" onclick="setTipo(this,'dinheiro')">Dinheiro</button>
+        <button class="tbtn t-receita" onclick="setTipo(this,'receita')">Receita</button>
+      </div>
+    </div>
+    <div class="fgrid">
+      <div class="frow"><label class="flbl">Descrição</label><input class="inp" id="f-desc" placeholder="Ex: Supermercado"></div>
+      <div class="frow"><label class="flbl">Valor R$</label><input class="inp" id="f-val" type="number" step="0.01" placeholder="0,00"></div>
+    </div>
+    <div class="fgrid">
+      <div class="frow"><label class="flbl">Data</label><input class="inp" id="f-data" type="date"></div>
+      <div class="frow"><label class="flbl">Categoria</label>
+        <select class="sel" id="f-cat">
+          <option value="alimentacao">🍽 Alimentação</option><option value="transporte">🚗 Transporte</option>
+          <option value="saude">💊 Saúde</option><option value="lazer">🎉 Lazer</option>
+          <option value="assinatura">📱 Assinatura</option><option value="moradia">🏠 Moradia</option>
+          <option value="outros">📦 Outros</option>
+        </select>
+      </div>
+    </div>
+    <div class="frow" id="cartao-row" style="display:none"><label class="flbl">Cartão</label><select class="sel" id="f-cartao"><option value="">Selecione...</option></select></div>
+    <div class="frow" id="parc-row" style="display:none"><label class="flbl">Parcelas (vazio = à vista)</label><input class="inp" id="f-parc" type="number" min="1" max="48" placeholder="Ex: 12"></div>
+    <div class="frow"><label class="flbl">Recorrência</label>
+      <select class="sel" id="f-rec">
+        <option value="unica">Única vez</option>
+        <option value="mensal">Mensal (todo mês nesta data)</option>
+        <option value="dia30">Todo dia 30</option>
+        <option value="quinzenal">Quinzenal — dia 15 (ajusta dia útil)</option>
+        <option value="variavel">Valor variável — só este mês</option>
+      </select>
+    </div>
+    <div class="btn-row"><button class="bcnl" onclick="closeSheet('lancamento')">Cancelar</button><button class="bsave" onclick="saveLanc()">Salvar ✦</button></div>
+  </div>
+</div>
+
+<!-- SHEET CARTÃO -->
+<div class="overlay" id="sheet-cartao">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-ttl">Novo cartão</div>
+    <div class="fgrid">
+      <div class="frow"><label class="flbl">Nome</label><input class="inp" id="fc-nome" placeholder="Ex: Nubank"></div>
+      <div class="frow"><label class="flbl">Limite R$</label><input class="inp" id="fc-lim" type="number" placeholder="5000"></div>
+    </div>
+    <div class="fgrid">
+      <div class="frow"><label class="flbl">Dia vencimento</label><input class="inp" id="fc-venc" type="number" min="1" max="31" placeholder="20"></div>
+      <div class="frow"><label class="flbl">Cor</label>
+        <select class="sel" id="fc-cor">
+          <option value="135deg,#c8a0d8,#a070c0">💜 Lilás</option>
+          <option value="135deg,#e8a0a8,#d07080">🌸 Rosa</option>
+          <option value="135deg,#8ab8d8,#5888b8">💙 Azul</option>
+          <option value="135deg,#90b878,#608858">🌿 Verde</option>
+          <option value="135deg,#d8b878,#b09050">🤎 Dourado</option>
+        </select>
+      </div>
+    </div>
+    <div class="btn-row"><button class="bcnl" onclick="closeSheet('cartao')">Cancelar</button><button class="bsave" onclick="saveCartao()">Salvar ✦</button></div>
+  </div>
+</div>
+
+<!-- SHEET CONTA FIXA -->
+<div class="overlay" id="sheet-fixa">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-ttl">Nova conta fixa</div>
+    <div class="fgrid">
+      <div class="frow"><label class="flbl">Nome</label><input class="inp" id="ff-nome" placeholder="Ex: Netflix"></div>
+      <div class="frow"><label class="flbl">Valor R$</label><input class="inp" id="ff-val" type="number" placeholder="49,90"></div>
+    </div>
+    <div class="fgrid">
+      <div class="frow"><label class="flbl">Dia vencimento</label><input class="inp" id="ff-dia" type="number" min="1" max="31" placeholder="17"></div>
+      <div class="frow"><label class="flbl">Categoria</label>
+        <select class="sel" id="ff-cat">
+          <option value="assinatura">📱 Assinatura</option><option value="moradia">🏠 Moradia</option>
+          <option value="saude">💊 Saúde</option><option value="educacao">📚 Educação</option>
+          <option value="outros">📦 Outros</option>
+        </select>
+      </div>
+    </div>
+    <div class="btn-row"><button class="bcnl" onclick="closeSheet('fixa')">Cancelar</button><button class="bsave" onclick="saveFixa()">Salvar ✦</button></div>
+  </div>
+</div>
+
+<script>
+const SK='floresca_v3';
+function load(){try{const r=localStorage.getItem(SK);if(r)return JSON.parse(r);}catch(e){}return{lancamentos:[],cartoes:[],fixas:[]};}
+function persist(){
+  try{localStorage.setItem(SK,JSON.stringify(S));}catch(e){}
+  const t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800);
+}
+let S=load();
+let curM=new Date().getMonth(),curY=new Date().getFullYear();
+let activeFilter='',selTipo='debito',homeView='chart';
+let hCI=null,pCI=null;
+const MN=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const CE={alimentacao:'🍽',transporte:'🚗',saude:'💊',lazer:'🎉',assinatura:'📱',moradia:'🏠',educacao:'📚',outros:'📦'};
+const CC={alimentacao:'#f4c6c6',transporte:'#c6d4f4',saude:'#c6f4d4',lazer:'#f4f0c6',assinatura:'#ddd0f0',moradia:'#f0d8c6',educacao:'#d0e8f4',outros:'#e8e4de'};
+const fmt=v=>'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fmtS=v=>{const a=Math.abs(v);return(v<0?'-':'')+'R$ '+(a>=1000?(a/1000).toFixed(1)+'k':Math.round(a));};
+const today=()=>new Date().toISOString().split('T')[0];
+function dU(dia){const n=new Date();let t=new Date(n.getFullYear(),n.getMonth(),dia);if(t<=n)t=new Date(n.getFullYear(),n.getMonth()+1,dia);return Math.ceil((t-n)/86400000);}
+function updM(){const l=MN[curM]+' '+curY;document.getElementById('hero-month').textContent=l;const l2=document.getElementById('lanc-mo');if(l2)l2.textContent=MN[curM].slice(0,3)+' '+curY;}
+function goPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('pg-'+id).classList.add('active');
+  const ni=document.getElementById('nav-'+id);if(ni)ni.classList.add('active');
+  ({home:renderHome,lancamentos:renderLanc,cartoes:renderCartoes,projecao:renderProj})[id]?.();
+}
+function changeMonth(d){curM+=d;if(curM>11){curM=0;curY++;}if(curM<0){curM=11;curY--;}updM();renderHome();if(document.getElementById('pg-lancamentos').classList.contains('active'))renderLanc();}
+function checkAlerts(){
+  const items=[];
+  S.fixas.forEach(f=>{const d=dU(f.dia);if(d<=7)items.push(`${f.nome} — ${fmt(f.valor)} · em ${d} dia${d!==1?'s':''} (dia ${f.dia})`);});
+  S.cartoes.forEach(c=>{const d=dU(c.venc);if(d<=7)items.push(`Cartão ${c.nome} · vence dia ${c.venc} em ${d} dia${d!==1?'s':''}`);});
+  const box=document.getElementById('alert-box'),dot=document.getElementById('notif-dot');
+  if(items.length){box.style.display='block';dot.style.display='block';document.getElementById('alert-items').innerHTML=items.map(i=>`<div class="alert-item">${i}</div>`).join('');}
+  else{box.style.display='none';dot.style.display='none';}
+}
+function setHV(v){
+  homeView=v;
+  document.getElementById('vt-c').classList.toggle('active',v==='chart');
+  document.getElementById('vt-l').classList.toggle('active',v==='list');
+  document.getElementById('hv-chart').style.display=v==='chart'?'block':'none';
+  document.getElementById('hv-list').style.display=v==='list'?'block':'none';
+  v==='chart'?renderHC():renderHTx();
+}
+function renderHome(){
+  updM();checkAlerts();
+  const txs=S.lancamentos.filter(t=>{const d=new Date(t.data+'T12:00:00');return d.getMonth()===curM&&d.getFullYear()===curY;});
+  let inc=0,exp=0;txs.forEach(t=>{if(t.tipo==='receita')inc+=Number(t.valor);else exp+=Number(t.valor);});
+  const bal=inc-exp,futP=S.lancamentos.filter(t=>t.parcelas&&(t.parcAtual||1)<t.parcelas).reduce((s,t)=>s+Number(t.valor),0);
+  document.getElementById('hero-bal').textContent=fmt(bal);
+  document.getElementById('hero-bal').style.color=bal>=0?'var(--txt)':'var(--neg)';
+  document.getElementById('hero-sub').textContent=bal>=0?'Saldo positivo ✦':'Atenção: saldo negativo ▼';
+  document.getElementById('chip-inc').textContent=fmtS(inc);
+  document.getElementById('chip-exp').textContent=fmtS(exp);
+  document.getElementById('chip-proj').textContent=fmtS(bal-futP*.2);
+  homeView==='chart'?renderHC():renderHTx();
+}
+function renderHC(){
+  const labels=[],iA=[],eA=[];
+  for(let i=5;i>=0;i--){const m=((curM-i)%12+12)%12,y=curY+Math.floor((curM-i)/12);labels.push(MN[m].slice(0,3));let inc=0,exp=0;S.lancamentos.forEach(t=>{const d=new Date(t.data+'T12:00:00');if(d.getMonth()===m&&d.getFullYear()===y){if(t.tipo==='receita')inc+=Number(t.valor);else exp+=Number(t.valor);}});iA.push(inc);eA.push(exp);}
+  const ctx=document.getElementById('homeChart');if(!ctx)return;if(hCI)hCI.destroy();
+  hCI=new Chart(ctx,{type:'bar',data:{labels,datasets:[{label:'Receitas',data:iA,backgroundColor:'rgba(148,184,137,.75)',borderRadius:6,borderSkipped:false},{label:'Gastos',data:eA,backgroundColor:'rgba(232,152,152,.75)',borderRadius:6,borderSkipped:false},{label:'Saldo',data:iA.map((v,i)=>v-eA[i]),type:'line',borderColor:'#b8a0d8',backgroundColor:'transparent',pointBackgroundColor:iA.map((v,i)=>v-eA[i]>=0?'#94b889':'#e89898'),tension:.4,borderWidth:2,pointRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10},boxWidth:10,padding:10}}},scales:{y:{grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{size:10},callback:v=>fmtS(v)}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});
+}
+function renderHTx(){const el=document.getElementById('home-tx');const txs=[...S.lancamentos].sort((a,b)=>b.data.localeCompare(a.data)).slice(0,5);el.innerHTML=txs.length?txs.map(t=>txR(t)).join(''):'<div class="empty"><div class="eico">🌸</div><div class="etxt">Nenhum lançamento ainda</div></div>';}
+function setFilter(el,val){document.querySelectorAll('.fchip').forEach(c=>c.classList.remove('active'));el.classList.add('active');activeFilter=val;renderLanc();}
+function renderLanc(){const el=document.getElementById('lanc-list');let txs=[...S.lancamentos].sort((a,b)=>b.data.localeCompare(a.data));if(activeFilter)txs=txs.filter(t=>t.tipo===activeFilter);el.innerHTML=txs.length?txs.map(t=>txR(t,true)).join(''):'<div class="empty"><div class="eico">🌸</div><div class="etxt">Nenhum lançamento</div></div>';}
+function txR(t,del=false){
+  const pos=t.tipo==='receita',bg=CC[t.cat]||'#ece8e4';
+  const tags=[`<span class="pill ${t.tipo}">${t.tipo.charAt(0).toUpperCase()+t.tipo.slice(1)}</span>`,t.parcelas?`<span class="pill parc">${t.parcAtual||1}/${t.parcelas}x</span>`:'',t.recorrente&&t.recorrente!=='unica'?`<span class="pill rec">Recorr.</span>`:''].filter(Boolean).join('');
+  return`<div class="tx"><div class="tx-ico" style="background:${bg}">${CE[t.cat]||'📦'}</div><div class="tx-info"><div class="tx-name">${t.desc}</div><div class="tx-sub">${new Date(t.data+'T12:00:00').toLocaleDateString('pt-BR')}</div><div class="tx-tags">${tags}</div></div><div class="tx-amt ${pos?'p':'n'}">${pos?'+':'-'}${fmt(t.valor)}</div>${del?`<button class="tx-del" onclick="delTx(${t.id})">×</button>`:''}</div>`;
+}
+function delTx(id){if(!confirm('Excluir?'))return;S.lancamentos=S.lancamentos.filter(t=>t.id!==id);persist();renderLanc();renderHome();}
+function renderCartoes(){
+  const el=document.getElementById('cartoes-list');
+  const sel=document.getElementById('f-cartao');if(sel)sel.innerHTML='<option value="">Selecione...</option>'+S.cartoes.map(c=>`<option value="${c.nome}">${c.nome}</option>`).join('');
+  el.innerHTML=S.cartoes.length?S.cartoes.map(c=>{const d=dU(c.venc),urg=d<=3?'🔴':d<=7?'🟡':'🟢',pct=Math.min(100,Math.round(c.usado/c.limite*100));return`<div class="cartao" style="background:linear-gradient(${c.cores})"><div class="c-name">💳 ${c.nome}</div><div class="c-val">${fmt(c.usado)}</div><div class="c-lim">de ${fmt(c.limite)} · ${pct}% usado</div><div class="c-bar-bg"><div class="c-bar-fill" style="width:${pct}%"></div></div><div class="c-footer"><div class="c-venc">${urg} Vence dia ${c.venc} · em ${d} dias</div><button class="c-del" onclick="delCartao(${c.id})">Remover</button></div></div>`;}).join(''):'<div class="empty"><div class="eico">💳</div><div class="etxt">Nenhum cartão ainda</div></div>';
+  const cors={assinatura:'#d0b8e8',moradia:'#d0c8b0',saude:'#c8e8d0',educacao:'#b8d0e8',outros:'#d0c8c0'};
+  const el2=document.getElementById('fixas-list');el2.innerHTML=S.fixas.length?S.fixas.map(f=>{const d=dU(f.dia),s=d<=3?'late':d<=7?'warn':'ok',sl=d<=3?'Urgente':d<=7?'Em breve':'Ok';return`<div class="bill"><div class="bdot" style="background:${cors[f.cat]||'#d0c0c8'}"></div><div class="binfo"><div class="bname">${f.nome}</div><div class="bsub">Todo dia ${f.dia} · ${CE[f.cat]||''} ${f.cat}</div></div><div class="bamt">${fmt(f.valor)}</div><div class="bbadge ${s}">${sl}</div><button class="bdel" onclick="delFixa(${f.id})">×</button></div>`;}).join(''):'<div class="empty"><div class="eico">📋</div><div class="etxt">Nenhuma conta fixa</div></div>';
+}
+function delCartao(id){if(!confirm('Remover cartão?'))return;S.cartoes=S.cartoes.filter(c=>c.id!==id);persist();renderCartoes();checkAlerts();}
+function delFixa(id){if(!confirm('Remover conta fixa?'))return;S.fixas=S.fixas.filter(f=>f.id!==id);persist();renderCartoes();checkAlerts();}
+function renderProj(){
+  let mxM=curM,mxY=curY;
+  S.lancamentos.filter(t=>t.parcelas).forEach(t=>{const d=new Date(t.data+'T12:00:00'),rem=t.parcelas-((t.parcAtual||1)-1),em=d.getMonth()+rem-1,ey=d.getFullYear()+Math.floor(em/12),emf=((em%12)+12)%12;if(ey>mxY||(ey===mxY&&emf>mxM)){mxY=ey;mxM=emf;}});
+  if(mxY===curY&&mxM<=curM){mxM=curM+5;if(mxM>11){mxM-=12;mxY++;}}
+  const rows=[];let m=curM,y=curY,safe=0;
+  while((y<mxY||(y===mxY&&m<=mxM))&&safe<24){safe++;let inc=0,exp=0;
+    S.lancamentos.filter(t=>t.tipo==='receita').forEach(t=>{const rec=t.recorrente||'unica',d=new Date(t.data+'T12:00:00');if(rec==='unica'){if(d.getMonth()===m&&d.getFullYear()===y)inc+=Number(t.valor);}else if(rec!=='variavel')inc+=Number(t.valor);else if(d.getMonth()===m&&d.getFullYear()===y)inc+=Number(t.valor);});
+    S.fixas.forEach(f=>exp+=Number(f.valor));
+    S.lancamentos.filter(t=>t.parcelas&&t.tipo!=='receita').forEach(t=>{const d=new Date(t.data+'T12:00:00'),el=((y-d.getFullYear())*12+(m-d.getMonth())),pl=t.parcelas-((t.parcAtual||1)-1);if(el>=0&&el<pl)exp+=Number(t.valor);});
+    S.lancamentos.filter(t=>t.tipo!=='receita'&&t.recorrente&&t.recorrente!=='unica'&&!t.parcelas).forEach(t=>{const d=new Date(t.data+'T12:00:00');if(!(d.getMonth()===m&&d.getFullYear()===y))exp+=Number(t.valor);});
+    rows.push({m,y,inc,exp,bal:inc-exp});m++;if(m>11){m=0;y++;}
+  }
+  const ctx=document.getElementById('projChart');
+  if(ctx){if(pCI)pCI.destroy();pCI=new Chart(ctx,{type:'line',data:{labels:rows.map(r=>MN[r.m].slice(0,3)+'/'+String(r.y).slice(2)),datasets:[{label:'Saldo',data:rows.map(r=>r.bal),borderColor:'#b8a0d8',backgroundColor:'rgba(184,160,216,.12)',fill:true,tension:.4,pointRadius:4,pointBackgroundColor:rows.map(r=>r.bal>=0?'#94b889':'#e89898')}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{size:10},callback:v=>fmtS(v)}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});}
+  const rlbl={mensal:'Todo mês nesta data',dia30:'Todo dia 30',quinzenal:'Dia 15 (ajusta dia útil)',variavel:'Valor variável'};
+  const recs=S.lancamentos.filter(t=>t.tipo==='receita'&&t.recorrente&&t.recorrente!=='unica');
+  document.getElementById('rec-list').innerHTML=recs.length?recs.map(t=>`<div class="bill"><div class="bdot" style="background:#94b889"></div><div class="binfo"><div class="bname">${t.desc}</div><div class="bsub">${rlbl[t.recorrente]||t.recorrente}</div></div><div class="bamt" style="color:var(--sage-t)">+${fmt(t.valor)}</div></div>`).join(''):'<div class="empty"><div class="eico">💚</div><div class="etxt">Cadastre receitas recorrentes para ver aqui</div></div>';
+  const pr=document.getElementById('proj-rows');if(!rows.length){pr.innerHTML='<div class="empty"><div class="eico">📅</div><div class="etxt">Adicione lançamentos</div></div>';return;}
+  const mx=Math.max(...rows.map(r=>Math.abs(r.bal)),1);
+  pr.innerHTML=rows.map(r=>{const pct=Math.round(Math.abs(r.bal)/mx*100),pos=r.bal>=0;return`<div class="prow"><div class="pmo">${MN[r.m].slice(0,3)} ${String(r.y).slice(2)}</div><div class="pwrap"><div class="pbar"><div class="${pos?'fp':'fn'}" style="width:${pct}%"></div></div></div><div class="pnum ${pos?'pos':'neg'}">${pos?'+':''}${fmtS(r.bal)}</div><div class="pbadge ${pos?'pos':'neg'}">${pos?'✦ ok':'▼'}</div></div>`;}).join('');
+}
+function openSheet(id){if(id==='lancamento'){document.getElementById('f-data').value=today();['f-desc','f-val','f-parc'].forEach(i=>document.getElementById(i).value='');document.getElementById('f-rec').value='unica';setTipo(document.querySelector('.tbtn.t-debito'),'debito');renderCartoes();}document.getElementById('sheet-'+id).classList.add('open');}
+function closeSheet(id){document.getElementById('sheet-'+id).classList.remove('open');}
+document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
+function setTipo(btn,tipo){selTipo=tipo;document.querySelectorAll('#tipo-row .tbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('cartao-row').style.display=tipo==='credito'?'block':'none';document.getElementById('parc-row').style.display=tipo==='credito'?'block':'none';}
+function saveLanc(){const desc=document.getElementById('f-desc').value.trim(),val=parseFloat(document.getElementById('f-val').value),data=document.getElementById('f-data').value;if(!desc||!val||!data){alert('Preencha descrição, valor e data!');return;}S.lancamentos.push({id:Date.now(),desc,valor:val,tipo:selTipo,cat:document.getElementById('f-cat').value,data,recorrente:document.getElementById('f-rec').value,cartao:document.getElementById('f-cartao')?.value||undefined,parcelas:parseInt(document.getElementById('f-parc').value)||undefined,parcAtual:parseInt(document.getElementById('f-parc').value)?1:undefined});persist();closeSheet('lancamento');renderHome();if(document.getElementById('pg-lancamentos').classList.contains('active'))renderLanc();}
+function saveCartao(){const nome=document.getElementById('fc-nome').value.trim(),lim=parseFloat(document.getElementById('fc-lim').value),venc=parseInt(document.getElementById('fc-venc').value);if(!nome||!lim||!venc){alert('Preencha todos os campos!');return;}S.cartoes.push({id:Date.now(),nome,limite:lim,usado:0,venc,cores:document.getElementById('fc-cor').value});persist();closeSheet('cartao');renderCartoes();checkAlerts();}
+function saveFixa(){const nome=document.getElementById('ff-nome').value.trim(),val=parseFloat(document.getElementById('ff-val').value),dia=parseInt(document.getElementById('ff-dia').value);if(!nome||!val||!dia){alert('Preencha todos os campos!');return;}S.fixas.push({id:Date.now(),nome,valor:val,dia,cat:document.getElementById('ff-cat').value});persist();closeSheet('fixa');renderCartoes();checkAlerts();}
+updM();setTimeout(()=>{renderHome();renderCartoes();},100);
+</script>
+</body>
+</html>
